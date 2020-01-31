@@ -1,15 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+# Self note, it is a good thing to pass the URL around in this manner
+# Helps with future production and routing purposes for steering users to proper location
+# https://youtu.be/a48xeeo5Vnk?t=919 explains routing of URLs
+# blog -> templates ->blog ->template.html
+
 # Home function, handling traffic from homepage, taking in requests arguements
 # Returning what we want the user to see when they are sent to this route
+# Still returns HttpsResponse in background/This is passing info into our html.template
 def home(request):
-	return HttpResponse('<h1>Blog Home Cunts!</h1>')
-	# 5. Home function, now it will return HttpResponse
+	return render(request, 'blog/home.html')
 
 # About function, Handles logic for about page, taking in request arguements
+# Returning what we want the user to see when they are sent to this route
+# Still returns HttpsResponse in background/This is passing info into our html.template
 def about(request):
-	return HttpResponse('<h1>Blog About Cunty biscuits!</h1>')
-
-def selftest(request):
-	return HttpResponse('<h1>Blog selftest Cunty biscuits...DRY!</h1>')
+	return render(request, 'blog/about.html')
