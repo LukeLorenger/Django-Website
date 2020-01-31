@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 # Self note, it is a good thing to pass the URL around in this manner
 # Helps with future production and routing purposes for steering users to proper location
