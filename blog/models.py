@@ -11,3 +11,7 @@ class Post(models.Model): # inheritence from models
 	content = models.TextField() # Text field is unrestricted text
 	date_posted = models.DateTimeField(default=timezone.now) # pass in actual function as defualt value
 	author = models.ForeignKey(User, on_delete=models.CASCADE) # If user deleted, then we will delete post as well.
+	
+	# dunder str method, 
+	def __str__(self):
+		return self.title

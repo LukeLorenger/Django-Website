@@ -5,7 +5,7 @@ from django.db import migrations, models
 import django.db.models.deletion
 import django.utils.timezone
 
-
+# THIS IS WHY ORM ( OBJECT RELATIONAL MAPPING IS IMPORTANT, DONT NEED TO USE SQL)
 class Migration(migrations.Migration):
 
     initial = True
