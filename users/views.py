@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages # What type of message we would like to add
+from django.contrib.auth.decorators import login_required # require a user is logged in to view the profile
 from .forms import UserRegisterForm # importing the created UserRegisterForm with email field
 
 # register view FUNCTION
@@ -16,8 +17,13 @@ def register(request):
 		form = UserRegisterForm() # Instance of the form
 	return render(request, 'users/register.html', {'form': form}) # render template that uses this form, uses instance
 
+@login_required # Decorator, adds functionality to an existing function
 def profile(request):
 	return render(request, 'users/profile.html')
+
+
+
+
 # The diff types of messages
 # messages.debug
 # messages.info

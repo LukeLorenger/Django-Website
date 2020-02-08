@@ -127,3 +127,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # when they log in, it will redirect to our blog homepage
 LOGIN_REDIRECT_URL = 'blog-home' 
+LOGIN_URL = 'login' #login is url pattern given to login route
