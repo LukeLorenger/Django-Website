@@ -9,7 +9,17 @@
           <p class="text-secondary">{{ user.email }}</p> <!--variable that allows updated email -->
         </div>
       </div>
-      <!-- FORM HERE -->
+      <form method="POST" enctype="multipart/form-data"> <!-- new form -->
+			{% csrf_token %} <!-- hidden tag, adding csrf token, protects our form against attacks -->
+			<fieldset class="form-group"> <!-- Used to group related elements in a form--> 
+				<legend class="border-bottom mb-4">Profile Info</legend>
+				{{ u_form|crispy }} <!-- accessing form variable, will display form labels and fields that we need -->
+				{{ p_form|crispy }}
+			</fieldset>
+			<div class="form-group"> 
+				<button class="btn btn-outline-info" type="submit">Update</button>	<!-- div of submit button to sign up, passing class btn from bootstrap-->		
+			</div>
+		</form>	
     </div>
 {% endblock content %}
 

@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages # What type of message we would like to add
 from django.contrib.auth.decorators import login_required # require a user is logged in to view the profile
-from .forms import UserRegisterForm # importing the created UserRegisterForm with email field
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm # importing the created UserRegisterForm with email field
+
 
 # register view FUNCTION
 def register(request):
@@ -19,7 +20,26 @@ def register(request):
 
 @login_required # Decorator, adds functionality to an existing function
 def profile(request):
-	return render(request, 'users/profile.html')
+	if request.method == 'POST':
+		u_form =UserUpdateForm(request.POST, instance=request.user) # Instance autofills update bars
+		p_form =ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile) # Instance autofills update bars
+
+		if u_form.is_valid() and p_form.is_valid():
+			u_form.save() # save user update
+			p_form.save() # save profile update
+			messages.success(request, f'Your account has been updated') # Flashed message using F string
+			return redirect('profile')
+
+	else:
+		u_form =UserUpdateForm(instance=request.user) # Instance autofills update bars
+		p_form =ProfileUpdateForm(instance=request.user.profile) # Instance autofills update bars
+
+	context = {
+		'u_form': u_form,
+		'p_form': p_form,
+	}
+
+	return render(request, 'users/profile.html', context)
 
 
 
