@@ -122,6 +122,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # full path-directory for django to store files for performance
+MEDIA_URL = '/media/' # place to store image files for performance
+
 # Changing setting
 CRISPY_TEMPLATE_PACK = 'bootstrap4' 
 

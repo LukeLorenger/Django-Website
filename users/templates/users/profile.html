@@ -1,5 +1,16 @@
 {% extends "blog/base.html" %} <!--Inheritance of base.html -->
 {% load crispy_forms_tags %}
 {% block content %}
-	<h1>{{ user.username }}</h1>
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}"> <!-- updated location of image -->
+        <div class="media-body">
+          <h2 class="account-heading">{{ user.username }}</h2> <!--variable that allows for updated username -->
+          <p class="text-secondary">{{ user.email }}</p> <!--variable that allows updated email -->
+        </div>
+      </div>
+      <!-- FORM HERE -->
+    </div>
 {% endblock content %}
+
+<!--users: username, profile pic, email address, ability to update information -->
