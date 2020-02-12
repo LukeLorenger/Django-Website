@@ -30,3 +30,5 @@ class PostListView(ListView):
 # Still returns HttpsResponse in background/This is passing info into our html.template
 def about(request):
 	return render(request, 'blog/about.html', {'title': 'About'})
+
+	# Notes
