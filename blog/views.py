@@ -21,6 +21,9 @@ def home(request):
 # new class for class based views
 class PostListView(ListView):
 	model = Post
+	template_name = 'blog/home.html' # <app>/<model>_<viewtype>.html
+	context_object_name = 'posts' # attribute
+	ordering = ['-date_posted']# Will order posts from newest to oldest
 
 # About view function, Handles logic for about page, taking in request arguements
 # Returning what we want the user to see when they are sent to this route
