@@ -1,8 +1,10 @@
 from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin 
 from django.views.generic import (
 	ListView, 
 	DetailView, 
-	CreateView 
+	CreateView,
+	UpdateView 
 )
 from .models import Post # the . in fron of models means from model file in current package
 
@@ -34,7 +36,8 @@ class PostDetailView(DetailView):
 	model = Post
 
 # View with a form where we create a new post
-class PostCreateView(CreateView):
+# Passing in LoginRequiredMixin requires you to log in to create post
+class PostCreateView(LoginRequiredMixin, CreateView):
 	model = Post
 	fields = ['title', 'content'] # set fields we want in form
 
@@ -43,6 +46,15 @@ class PostCreateView(CreateView):
 		# before u submit form, take instance, set author to current logged in user
 		form.instance.author = self.request.user 
 		# validate form, Running form_valid method on parent class
+		return super().form_valid(form) 
+
+# Same as PostCreateView
+class PostUpdateView(LoginRequiredMixin, UpdateView):
+	model = Post
+	fields = ['title', 'content'] 
+	
+	def form_valid(self, form):		
+		form.instance.author = self.request.user 
 		return super().form_valid(form) 
 
 # About view function, Handles logic for about page, taking in request arguements
