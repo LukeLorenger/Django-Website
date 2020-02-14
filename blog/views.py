@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin 
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin 
 from django.views.generic import (
 	ListView, 
 	DetailView, 
@@ -49,13 +49,24 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 		return super().form_valid(form) 
 
 # Same as PostCreateView
-class PostUpdateView(LoginRequiredMixin, UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 	model = Post
 	fields = ['title', 'content'] 
 	
 	def form_valid(self, form):		
 		form.instance.author = self.request.user 
 		return super().form_valid(form) 
+
+	# Runs test to make sure user editing post is author
+	def test_func(self):
+		# will get post we are currently trying to update
+		post = self.get_object() 
+		# check is current user is author of post
+		if self.request.user == post.author:
+			return True
+		# If the user is not author, if conditional is not met,...False
+		return False
+
 
 # About view function, Handles logic for about page, taking in request arguements
 # Returning what we want the user to see when they are sent to this route
