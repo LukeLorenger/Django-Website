@@ -1,5 +1,9 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView # Importing ListView
+from django.views.generic import (
+	ListView, 
+	DetailView, 
+	CreateView 
+)
 from .models import Post # the . in fron of models means from model file in current package
 
 # Self note, it is a good thing to pass the URL around in this manner
@@ -28,6 +32,18 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
 	model = Post
+
+# View with a form where we create a new post
+class PostCreateView(CreateView):
+	model = Post
+	fields = ['title', 'content'] # set fields we want in form
+
+	# override form valid method
+	def form_valid(self, form):
+		# before u submit form, take instance, set author to current logged in user
+		form.instance.author = self.request.user 
+		# validate form, Running form_valid method on parent class
+		return super().form_valid(form) 
 
 # About view function, Handles logic for about page, taking in request arguements
 # Returning what we want the user to see when they are sent to this route
