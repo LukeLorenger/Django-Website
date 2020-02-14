@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView # Importing ListView
+from django.views.generic import ListView, DetailView # Importing ListView
 from .models import Post # the . in fron of models means from model file in current package
 
 # Self note, it is a good thing to pass the URL around in this manner
@@ -24,6 +24,10 @@ class PostListView(ListView):
 	template_name = 'blog/home.html' # <app>/<model>_<viewtype>.html
 	context_object_name = 'posts' # attribute
 	ordering = ['-date_posted']# Will order posts from newest to oldest
+
+
+class PostDetailView(DetailView):
+	model = Post
 
 # About view function, Handles logic for about page, taking in request arguements
 # Returning what we want the user to see when they are sent to this route

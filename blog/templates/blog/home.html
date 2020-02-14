@@ -3,6 +3,7 @@
 {% block content %}
 	<!-- Code block, posts is the key for the context dictionary for which we passed in,  --> 
 	<!-- From within this home template, we can loop over posts we have access too, then print -->
+	<!-- This is where our posts loop******* -->
 {% for post in posts %} 
 	<article class="media content-section">
 	  <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"> <!--author pic rounded--->	
@@ -11,7 +12,8 @@
 	      <a class="mr-2" href="#">{{ post.author }}</a>
 	      <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small> <!-- fdy, is formatting posted date, didnt want exact time displayed. Check django documentation -->
 	    </div>
-	    <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+	    <!-- url post-detail post.id allows me to connect links to post page -->
+	    <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
 	    <p class="article-content">{{ post.content }}</p>
 	  </div>
 	</article>

@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %} <!--Inheritance of base.html -->
+{% block content %}
+	<!-- Code block, posts is the key for the context dictionary for which we passed in,  --> 
+	<!-- From within this home template, we can loop over posts we have access too, then print -->
+  <article class="media content-section">
+	<img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}"> <!--author pic rounded--->	
+	<div class="media-body">
+	  <div class="article-metadata">
+	    <a class="mr-2" href="#">{{ object.author }}</a>
+	    <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small> <!-- fdy, is formatting posted date, didnt want exact time displayed. Check django documentation -->
+	  </div>
+	  <h2 class="article-title">{{ object.title }}</h2>
+	  <p class="article-content">{{ object.content }}</p>
+	</div>
+  </article>
+{% endblock content %}
