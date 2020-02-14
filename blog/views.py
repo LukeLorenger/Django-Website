@@ -4,7 +4,8 @@ from django.views.generic import (
 	ListView, 
 	DetailView, 
 	CreateView,
-	UpdateView 
+	UpdateView,
+	DeleteView 
 )
 from .models import Post # the . in fron of models means from model file in current package
 
@@ -58,6 +59,20 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 		return super().form_valid(form) 
 
 	# Runs test to make sure user editing post is author
+	def test_func(self):
+		# will get post we are currently trying to update
+		post = self.get_object() 
+		# check is current user is author of post
+		if self.request.user == post.author:
+			return True
+		# If the user is not author, if conditional is not met,...False
+		return False
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+	model = Post
+	# Once you delete post by clicking submit button, it will take you back to home page
+	success_url = "/"
+
 	def test_func(self):
 		# will get post we are currently trying to update
 		post = self.get_object() 

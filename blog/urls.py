@@ -3,7 +3,8 @@ from .views import (
 	PostListView, 
 	PostDetailView, 
 	PostCreateView,
-	PostUpdateView
+	PostUpdateView,
+	PostDeleteView
 )
 from . import views # Imports views.py module
 
@@ -15,7 +16,9 @@ urlpatterns = [
     # URL for Create new post
     path('post/new/', PostCreateView.as_view(), name='post-create'), 
     # Update Path, this allows for posts to be updated
-    path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'), 
+    path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
+    # Delete Path
+    path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),  
     # Path for about route
     path('about/', views.about, name='blog-about'), 
 

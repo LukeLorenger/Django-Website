@@ -1,0 +1,18 @@
+{% extends "blog/base.html" %} <!--Inheritance of base.html -->
+{% block content %}
+	<div class="content-section"> <!-- div for making form -->
+		<form method="POST"> <!-- new form -->
+			{% csrf_token %} <!-- hidden tag, adding csrf token, protects our form against attacks -->
+			<fieldset class="form-group"> <!-- Used to group related elements in a form--> 
+				<legend class="border-bottom mb-4">Delete Post</legend>
+				<h2>Are you sure you want to delete the post "{{ object.title }}"</h2>
+			</fieldset>
+			<div class="form-group"> 
+				<!-- delete button -->
+				<button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
+				<!-- link to cancel -->
+				<a class="btn btn-outline-secondary" href="{% url 'post-detail' object.id %}">Cancel</a>
+			</div>
+		</form>	
+	</div>
+{% endblock content %}
