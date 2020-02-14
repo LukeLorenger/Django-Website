@@ -20,7 +20,8 @@ from .models import Post # the . in fron of models means from model file in curr
 # Returning what we want the user to see when they are sent to this route
 # Still returns HttpsResponse in background/This is passing info into our html.template
 def home(request):
-	context = { # Dictionary
+	# Dictionary
+	context = { 
 		'posts': Post.objects.all() # 
 	}
 	return render(request, 'blog/home.html', context)
@@ -28,9 +29,14 @@ def home(request):
 # new class for class based views
 class PostListView(ListView):
 	model = Post
-	template_name = 'blog/home.html' # <app>/<model>_<viewtype>.html
-	context_object_name = 'posts' # attribute
-	ordering = ['-date_posted']# Will order posts from newest to oldest
+	# <app>/<model>_<viewtype>.html
+	template_name = 'blog/home.html' 
+	# attribute
+	context_object_name = 'posts' 
+	# Will order posts from newest to oldest
+	ordering = ['-date_posted']
+	# give us pagination functionality
+	paginate_by = 2
 
 
 class PostDetailView(DetailView):

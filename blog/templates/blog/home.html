@@ -4,19 +4,52 @@
 	<!-- Code block, posts is the key for the context dictionary for which we passed in,  --> 
 	<!-- From within this home template, we can loop over posts we have access too, then print -->
 	<!-- This is where our posts loop******* -->
-{% for post in posts %} 
-	<article class="media content-section">
-	  <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"> <!--author pic rounded--->	
-	  <div class="media-body">
-	    <div class="article-metadata">
-	      <a class="mr-2" href="#">{{ post.author }}</a>
-	      <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small> <!-- fdy, is formatting posted date, didnt want exact time displayed. Check django documentation -->
-	    </div>
-	    <!-- url post-detail post.id allows me to connect links to post page -->
-	    <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-	    <p class="article-content">{{ post.content }}</p>
-	  </div>
-	</article>
-{% endfor %}
+	{% for post in posts %} 
+		<article class="media content-section">
+		  <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"> <!--author pic rounded--->	
+		  <div class="media-body">
+		    <div class="article-metadata">
+		      <a class="mr-2" href="#">{{ post.author }}</a>
+		      <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small> <!-- fdy, is formatting posted date, didnt want exact time displayed. Check django documentation -->
+		    </div>
+		    <!-- url post-detail post.id allows me to connect links to post page -->
+		    <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+		    <p class="article-content">{{ post.content }}</p>
+		  </div>
+		</article>
+
+	{% endfor %}
+	<!--if pages are paginated -->
+	{% if is_paginated %}
+	<!--check for previous pages -->
+	  {% if page_obj.has_previous %}
+	  <!--button for page 1 -->
+	    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+	    <!--this button will go to previous page number -->
+	    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+	  {% endif %}
+
+	  <!--Loop over all pages in paginator -->
+	  {% for num in page_obj.paginator.page_range %}
+	  <!--to check current page -->
+	    {% if page_obj.number == num %}
+	    <!--go through whatever number we are in the loop -->
+	      <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+	    <!--if num we are currently on is within 3 previous pages, we want to print it out, and get next 3 pages -->
+	    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}  
+	    <!--add outline back to btsrp class,  -->
+	      <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+	    {% endif %}
+	  {% endfor %}
+
+	  <!--if current page object has next then have link to next page -->
+	  {% if page_obj.has_next %}
+	  <!--button for page 1 -->
+	    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+	    <!--if there are x amount of pages, this will say equal to x -->
+	    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+	  {% endif %}
+
+	{% endif %}
 {% endblock content %}
 
