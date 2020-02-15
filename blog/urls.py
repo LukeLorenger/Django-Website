@@ -4,13 +4,16 @@ from .views import (
 	PostDetailView, 
 	PostCreateView,
 	PostUpdateView,
-	PostDeleteView
+	PostDeleteView,
+	UserPostListView
 )
 from . import views # Imports views.py module
 
 urlpatterns = [
 	# Path for home route
     path('', PostListView.as_view(), name='blog-home'), 
+    # User Post path
+    path('user/<str:username>', UserPostListView.as_view(), name='user-posts'),
     # Primary key of post we want to view, pk grabbing value from url, using in view function  
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'), 
     # URL for Create new post

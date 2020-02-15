@@ -1,6 +1,8 @@
 {% extends "blog/base.html" %} <!--Inheritance of base.html -->
 
 {% block content %}
+	<!--Heading to display "this" users page, displaying username, pagecount -->
+	<h1 class="mb-3">Posts by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
 	<!-- Code block, posts is the key for the context dictionary for which we passed in,  --> 
 	<!-- From within this home template, we can loop over posts we have access too, then print -->
 	<!-- This is where our posts loop******* -->
@@ -9,6 +11,7 @@
 		  <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"> <!--author pic rounded--->	
 		  <div class="media-body">
 		    <div class="article-metadata">
+		    	<!--link to users page -->
 		      <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
 		      <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small> <!-- fdy, is formatting posted date, didnt want exact time displayed. Check django documentation -->
 		    </div>
