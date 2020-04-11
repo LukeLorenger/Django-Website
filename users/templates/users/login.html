@@ -9,7 +9,10 @@
 				{{ form|crispy }} <!-- accessing form variable, will display form labels and fields that we need -->
 			</fieldset>
 			<div class="form-group"> 
-				<button class="btn btn-outline-info" type="submit">Login</button>	<!-- div of submit button to sign up, passing class btn from bootstrap-->		
+				<button class="btn btn-outline-info" type="submit">Login</button>	<!-- div of submit button to sign up, passing class btn from bootstrap-->
+				<small class="text-muted ml-2">
+					<a href="{% url 'password_reset' %}">Forgot Password?</a><!-- forgot password link at login page -->
+				</small>		
 			</div>
 		</form>	
 		<div class="border-top pt-3">

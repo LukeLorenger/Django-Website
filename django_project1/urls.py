@@ -36,11 +36,16 @@ urlpatterns = [
     	 	 template_name='users/password_reset_done.html'
     	 ),
     	 name='password_reset_done'), # route that provides form for password to fill out   
-    path('password-reset-confirm/<uidb64>/<token>', # password reset confirm path
+    path('password-reset-confirm/<uidb64>/<token>/', # password reset confirm path
     	 auth_views.PasswordResetConfirmView.as_view(
     	 	 template_name='users/password_reset_confirm.html'
     	 ),
     	 name='password_reset_confirm'), # route that provides form for password to fill out 
+    path('password-reset-complete/',
+    	 auth_views.PasswordResetCompleteView.as_view(
+    	 	 template_name='users/password_reset_complete.html'
+    	 ),
+    	 name='password_reset_complete'), # route that provides form for password reset completed   
     path('', include('blog.urls')), # path to home
 ]
     # 1. When you navigate to /blog, program checks for a match
