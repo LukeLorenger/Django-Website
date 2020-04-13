@@ -13,7 +13,7 @@ class Profile(models.Model):
 		return f'{self.user.username} Profile' # everytime profile is printed, it will print username
 
 	def save(self, *args, **kwargs):
-		super().save() # running save method from parent class
+		super().save(*args, **kwargs) # running save method from parent class
 
 		img = Image.open(self.image.path) # Will open image of current instance
 
